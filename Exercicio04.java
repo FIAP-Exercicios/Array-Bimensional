@@ -3,44 +3,65 @@ import java.util.Random;
 
 public class Exercicio04 {
     public static void main(String[] args) {
+        String[] produtos= {"Eletronico", "Roupas", "Alimento"};
+        String[] meses={"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho"};
+        double[][] Tabela = new double[produtos.length][meses.length];
+        double aux, numeroM, k, soma, maior=0;
+        int index = 0;
         Random rd= new Random();
-        double [][] temperatura= new double[10][12];
-        DecimalFormat dc= new DecimalFormat("0.00");
-        double [] media= new double[temperatura.length];
-        double aux, maiorM = Double.MIN_EXPONENT, menorM = Double.MAX_EXPONENT;
-        int anoMaior= 0, anoMenor= 0;
+        DecimalFormat df= new DecimalFormat(" R$ #,##0.00");
 
-        for (int i=0; i< temperatura.length; i++){
-            aux=0;
-            for (int j=0; j < temperatura[i].length; j++){
-                temperatura[i][j]= rd.nextDouble(0, 35);
-                System.out.print(dc.format(temperatura[i][j])+"°"+"\t");
+        // gera vendas
 
-               aux+= temperatura[i][j];
+        for (int i= 0; i < Tabela.length; i++){
+            for (int j=0; j < Tabela[i].length; j++){
+                Tabela[i][j]= rd.nextDouble(1, 1000);
+                System.out.print(df.format(Tabela[i][j]) + "\t");
+
+
             }
             System.out.println();
-            media[i]= aux / temperatura[i].length;
-            if (media[i] > maiorM){
-                maiorM=media[i];
-                anoMenor= i;
-
-            }
-            if (media[i] < menorM){
-                menorM= media[i];
-                anoMaior= i;
-
-            }
-
         }
-
-        // impressão da media de cada ano
         System.out.println();
-        for (int i= 0;i < media.length; i++){
 
-            System.out.println("Ano "+ (i+1) + " --> " + dc.format(media[i])+"°");
+        // Soma do total de vendas por categoria
+
+        for (int i= 0; i < Tabela.length; i++){
+            aux= 0;
+            for (int j=0; j < Tabela[i].length; j++){
+
+                aux+= Tabela[i][j];
+
+
+            }
+
+            System.out.println(produtos[i] + "--> "+ df.format(aux));
 
         }
-        System.out.println("Ano com maior media --> " + anoMaior +" ||||||||||||| Ano com menor media --> " + anoMenor);
+
+        // total de vendas por mês --> mês com a maior venda
+        System.out.println("\nTotal de vendas por mês");
+        for (int j=0; j< meses.length; j++){
+            aux=0;
+            for (int i=0; i < Tabela.length; i++){
+
+                aux += Tabela[i][j];
+
+            }
+            System.out.println(meses[j] + "-->" + df.format(aux));
+            if (aux> maior){
+
+                maior= aux;
+                index= j;
+
+            }
+        }
+        System.out.println("Mês com o maior total de vendas --> " + meses[index]);
+
+
+
+
+
 
     }
 }

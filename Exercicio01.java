@@ -20,7 +20,7 @@ public class Exercicio01 {
                     dp +=m[i][j];
 
                 }
-                // Verifique se etou na diagonal secundaria
+                // Verifique se estou na diagonal secundaria
                 else if (i + j ==m.length - 1) {
 
                     ds += m[i][j];
